@@ -1,0 +1,26 @@
+version: "2"
+services:
+
+  docker-demo-project:
+    restart: always
+    image: springio/docker-demo-project:latest
+    environment:
+      - POSTGRES_URI=jdbc:postgresql://localhost:5432/postgres
+      - MONGO_URI=mongodb://mongodb:27017/test-catalog
+    ports:
+      - "8080:8080"
+      - "5005:5005"
+
+  postgresdb:
+    restart: always
+    image: library/postgres:latest
+    ports:
+      - "5432:5432"
+#      volumes:
+#        - /var/lib/medmap/data
+
+  mongodb:
+    restart: always
+    image: library/mongo
+    ports:
+      - "27017:27017"
