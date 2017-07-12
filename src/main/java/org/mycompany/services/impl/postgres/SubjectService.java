@@ -1,6 +1,6 @@
 package org.mycompany.services.impl.postgres;
 
-import org.mycompany.converters.postgres.SubjectPostgresMapper;
+import org.mycompany.converters.postgres.SubjectMapper;
 import org.mycompany.models.dto.SubjectDTO;
 import org.mycompany.models.postgres.Subject;
 import org.mycompany.repositories.EntityRepository;
@@ -18,13 +18,13 @@ import java.util.stream.Collectors;
 @Service("postgresSubjectService")
 public class SubjectService implements EntityService<SubjectDTO, BigInteger> {
 
-    private final SubjectPostgresMapper subjectPostgresMapper;
+    private final SubjectMapper subjectMapper;
     private final EntityRepository<Subject, BigInteger> subjectRepository;
 
     @Autowired
-    public SubjectService(SubjectPostgresMapper subjectPostgresMapper,
+    public SubjectService(SubjectMapper subjectMapper,
                           EntityRepository<Subject, BigInteger> subjectRepository) {
-        this.subjectPostgresMapper = subjectPostgresMapper;
+        this.subjectMapper = subjectMapper;
         this.subjectRepository = subjectRepository;
     }
 
@@ -32,7 +32,7 @@ public class SubjectService implements EntityService<SubjectDTO, BigInteger> {
     public SubjectDTO getOne(BigInteger subjectId) {
         Subject subject = subjectRepository.findOne(subjectId);
 
-        return subjectPostgresMapper.subjectToSubjectDTO(subject);
+        return subjectMapper.subjectToSubjectDTO(subject);
     }
 
     @Override
@@ -40,12 +40,12 @@ public class SubjectService implements EntityService<SubjectDTO, BigInteger> {
         List<Subject> subjects = subjectRepository.findAll();
 
         return subjects.stream()
-                .map(subjectPostgresMapper::subjectToSubjectDTO).collect(Collectors.toList());
+                .map(subjectMapper::subjectToSubjectDTO).collect(Collectors.toList());
     }
 
     @Override
     public SubjectDTO add(SubjectDTO subjectDTO) {
-        Subject subject = subjectPostgresMapper.subjectDTOToSubject(subjectDTO);
+        Subject subject = subjectMapper.subjectDTOToSubject(subjectDTO);
         subjectRepository.save(subject);
 
         return subjectDTO;
@@ -58,7 +58,7 @@ public class SubjectService implements EntityService<SubjectDTO, BigInteger> {
 
     @Override
     public SubjectDTO patch(BigInteger subjectId, SubjectDTO subjectDTO) {
-        Subject subject = subjectPostgresMapper.subjectDTOToSubject(subjectDTO);
+        Subject subject = subjectMapper.subjectDTOToSubject(subjectDTO);
         subject.setId(subjectId);
         subjectRepository.save(subject);
 

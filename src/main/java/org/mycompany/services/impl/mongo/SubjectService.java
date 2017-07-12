@@ -1,6 +1,6 @@
 package org.mycompany.services.impl.mongo;
 
-import org.mycompany.converters.mongo.SubjectMongoMapper;
+import org.mycompany.converters.mongo.SubjectMapper;
 import org.mycompany.models.dto.SubjectDTO;
 import org.mycompany.models.mongo.Subject;
 import org.mycompany.repositories.EntityRepository;
@@ -17,13 +17,13 @@ import java.util.stream.Collectors;
 @Service("mongoSubjectService")
 public class SubjectService implements EntityService<SubjectDTO, String> {
 
-    private final SubjectMongoMapper subjectMongoMapper;
+    private final SubjectMapper subjectMapper;
     private final EntityRepository<Subject, String> subjectRepository;
 
     @Autowired
-    public SubjectService(SubjectMongoMapper subjectMongoMapper,
+    public SubjectService(SubjectMapper subjectMapper,
                           EntityRepository<Subject, String> subjectRepository) {
-        this.subjectMongoMapper = subjectMongoMapper;
+        this.subjectMapper = subjectMapper;
         this.subjectRepository = subjectRepository;
     }
 
@@ -31,18 +31,18 @@ public class SubjectService implements EntityService<SubjectDTO, String> {
     public SubjectDTO getOne(String subjectId) {
         Subject subject = subjectRepository.findOne(subjectId);
 
-        return subjectMongoMapper.subjectToSubjectDTO(subject) ;
+        return subjectMapper.subjectToSubjectDTO(subject) ;
     }
 
     @Override
     public List<SubjectDTO> getAll() {
         return subjectRepository.findAll().stream()
-                .map(subjectMongoMapper::subjectToSubjectDTO).collect(Collectors.toList());
+                .map(subjectMapper::subjectToSubjectDTO).collect(Collectors.toList());
     }
 
     @Override
     public SubjectDTO add(SubjectDTO subjectDTO) {
-        Subject subject = subjectMongoMapper.subjectDTOToSubject(subjectDTO);
+        Subject subject = subjectMapper.subjectDTOToSubject(subjectDTO);
         subjectRepository.save(subject);
 
         return subjectDTO;
@@ -55,7 +55,7 @@ public class SubjectService implements EntityService<SubjectDTO, String> {
 
     @Override
     public SubjectDTO patch(String subjectId, SubjectDTO subjectDTO) {
-        Subject subject = subjectMongoMapper.subjectDTOToSubject(subjectDTO);
+        Subject subject = subjectMapper.subjectDTOToSubject(subjectDTO);
         subject.setId(subjectId);
         subjectRepository.save(subject);
 

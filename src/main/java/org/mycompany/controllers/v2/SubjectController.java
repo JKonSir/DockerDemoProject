@@ -1,5 +1,6 @@
-package org.mycompany.controllers;
+package org.mycompany.controllers.v2;
 
+import org.mycompany.controllers.RestApi;
 import org.mycompany.models.dto.SubjectDTO;
 import org.mycompany.services.EntityService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,29 +13,28 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.math.BigInteger;
 import java.util.List;
 
 import javax.validation.constraints.NotNull;
 
 /**
- * Created by konstantinamp on 7/9/17.
+ * Created by kosi0715 on 12.07.2017.
  */
-@RestController
-@RequestMapping(value = RestApi.API_ROOT)
+@RestController("v2")
+@RequestMapping(value = RestApi.API_ROOT_V2)
 public class SubjectController {
 
-    private final EntityService<SubjectDTO, BigInteger> subjectService;
+    private final EntityService<SubjectDTO, String> subjectService;
 
     @Autowired
-    public SubjectController(EntityService<SubjectDTO, BigInteger> subjectService) {
+    public SubjectController(EntityService<SubjectDTO, String> subjectService) {
         this.subjectService = subjectService;
     }
 
     @RequestMapping(value = RestApi.SUBJECT, method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     public SubjectDTO getSubject(@PathVariable("subjectId") @NotNull String subjectId) {
-        return subjectService.getOne(new BigInteger(subjectId));
+        return subjectService.getOne(subjectId);
     }
 
     @RequestMapping(method = RequestMethod.GET)
@@ -52,7 +52,7 @@ public class SubjectController {
     @RequestMapping(value = RestApi.SUBJECT, method = RequestMethod.DELETE)
     @ResponseStatus(HttpStatus.OK)
     public void deleteSubject(@PathVariable("subjectId") String subjectId) {
-        subjectService.remove(new BigInteger(subjectId));
+        subjectService.remove(subjectId);
     }
 
     @RequestMapping(value = RestApi.SUBJECT,
@@ -61,6 +61,7 @@ public class SubjectController {
     @ResponseStatus(HttpStatus.OK)
     public SubjectDTO patchSubject(@PathVariable("subjectId") String subjectId,
                                    @RequestBody SubjectDTO subjectDTO) {
-        return subjectService.patch(new BigInteger(subjectId), subjectDTO);
+        return subjectService.patch(subjectId, subjectDTO);
     }
 }
+
