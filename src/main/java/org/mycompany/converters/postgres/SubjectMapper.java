@@ -7,8 +7,8 @@ import org.mycompany.models.postgres.Subject;
 /**
  * Created by konstantinamp on 7/9/17.
  */
-@Mapper(componentModel = "spring")
-public interface SubjectPostgresMapper {
+@Mapper(componentModel = "spring", implementationName = "SubjectPostgresMapper")
+public interface SubjectMapper {
 
     SubjectDTO subjectToSubjectDTO(Subject subject);
 

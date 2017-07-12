@@ -1,8 +1,8 @@
 server:
-  port: 8080
+  port: 9898
 spring:
   data:
     postgres:
       uri: ${POSTGRES_URI:jdbc:postgresql://localhost:5432/postgres}
     mongodb:
-      uri: ${MONGO_URI:mongodb://127.0.0.1:27017/subject-catalog}
+      uri: ${MONGO_URI:mongodb://localhost:27017/subject-catalog}
