@@ -20,7 +20,7 @@ import lombok.NoArgsConstructor;
 /**
  * Created by konstantinamp on 6/11/17.
  */
-//@Data
+@Data
 @Entity
 @Table(name = "subjects")
 @NoArgsConstructor
@@ -43,36 +43,4 @@ public class Subject implements GenericEntity {
 
     @Column(name = "age", nullable = false)
     private Integer age;
-
-    public BigInteger getId() {
-        return id;
-    }
-
-    public void setId(BigInteger id) {
-        this.id = id;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public Integer getAge() {
-        return age;
-    }
-
-    public void setAge(Integer age) {
-        this.age = age;
-    }
 }
