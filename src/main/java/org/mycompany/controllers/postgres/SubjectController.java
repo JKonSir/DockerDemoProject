@@ -1,4 +1,4 @@
-package org.mycompany.controllers.v1;
+package org.mycompany.controllers.postgres;
 
 import org.mycompany.controllers.RestApi;
 import org.mycompany.models.dto.SubjectDTO;

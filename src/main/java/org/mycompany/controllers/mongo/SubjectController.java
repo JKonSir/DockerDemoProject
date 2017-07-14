@@ -1,4 +1,4 @@
-package org.mycompany.controllers.v2;
+package org.mycompany.controllers.mongo;
 
 import org.mycompany.controllers.RestApi;
 import org.mycompany.models.dto.SubjectDTO;

@@ -24,10 +24,20 @@ public class Application {
     }
 
     @Bean
-    public Docket swaggerSettings() {
+    public Docket swaggerSettingsV1() {
         return new Docket(DocumentationType.SWAGGER_2).select()
-                .apis(RequestHandlerSelectors.basePackage("org.mycompany.controllers"))
+                .apis(RequestHandlerSelectors.basePackage("org.mycompany.controllers.postgres"))
                 .build()
+                .groupName("1.0")
+                .apiInfo(apiMetaData());
+    }
+
+    @Bean
+    public Docket swaggerSettingsV2() {
+        return new Docket(DocumentationType.SWAGGER_2).select()
+                .apis(RequestHandlerSelectors.basePackage("org.mycompany.controllers.mongo"))
+                .build()
+                .groupName("2.0")
                 .apiInfo(apiMetaData());
     }
 
